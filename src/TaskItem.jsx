@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TaskItem({ task, i,show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, isChecked, handleChecked }) {
+function TaskItem({ task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, isChecked, handleChecked, setEditId }) {
   return (
     <div className="task-section-1" key={task.id}>
       <div className="task-1">
@@ -8,7 +8,7 @@ function TaskItem({ task, i,show, setShow, setToggle, setTitle, setDescription, 
           <h3>{task.title}</h3>
           <h3 className="hover-effect" onClick={() => setShow(i)}>
             ...
-            </h3>
+          </h3>
           {show === i && (
             <div className="hover">
               <div className="edit">
@@ -16,9 +16,10 @@ function TaskItem({ task, i,show, setShow, setToggle, setTitle, setDescription, 
                   onClick={() => {
                     setToggle(true);
                     setShow(-1);
+                    setEditId(i)
                     setTitle(task.title);
                     setDescription(task.description);
-                    setShowButton(i);
+                    setShowButton(false);
                   }}
                 >
                   Edit...

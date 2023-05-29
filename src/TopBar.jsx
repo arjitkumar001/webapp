@@ -5,7 +5,8 @@ import TaskItem from './TaskItem';
 function TopBar() {
   const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(-1);
-
+  
+  const [editId, setEditId] = useState(-1);
   const [allValue, setAllValue] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,10 +16,6 @@ function TopBar() {
   const [isHideChecked, setIsHideChecked] = useState(false);
 
   const [showButton, setShowButton] = useState(true);
-
-  // const handleButtonClicked = () => {
-  //   console.log("Button Clicked");
-  // };
 
   const handleHideChecked = () => {
     setIsHideChecked(!isHideChecked);
@@ -36,6 +33,7 @@ function TopBar() {
     }
   };
 
+
   const addTask = () => {
     if (title && description) {
       const newTask = {
@@ -44,7 +42,7 @@ function TopBar() {
         description,
       };
       setAllValue([...allValue, newTask]);
-      setTaskIdCounter(taskIdCounter +1)
+      setTaskIdCounter(taskIdCounter + 1)
       setTitle("");
       setDescription("");
     }
@@ -55,24 +53,30 @@ function TopBar() {
     setAllValue(deletedTask);
   };
 
-  const editItem = id => {
-    console.log(title, description);
-    const updatedTask = allValue.map(task => {
-      if (task.id === id) {
-        return {
-          ...task,
-          title,
-          description,
-        };
+  const editItem = (id) => {
+    if (editId === -1)
+      return;
+    // console.table({
+    //   title,
+    //   description,
+    //   id,
+    //   editId
+    // }, "updated data")
+    setAllValue((p) => {
+      const copy = [...p];
+      copy[editId] = {
+        title,
+        description,
+        id: editId
       }
-      return task;
-    });
-    setAllValue(updatedTask);
+      return copy
+    })
     setTitle('');
     setDescription('');
     setShowButton(true);
+    setEditId(-1);
   };
-  // console.log(addTask);
+  // console.log(show);
 
   return (
     <section>
@@ -91,6 +95,7 @@ function TopBar() {
             setToggle={setToggle}
             showButton={showButton}
             editItem={editItem}
+            editItemId={show}
           />
         </div>
         <div className="content-section">
@@ -136,6 +141,8 @@ function TopBar() {
                 deleteItem={deleteItem}
                 isChecked={isChecked}
                 handleChecked={handleChecked}
+                editItem={editItem}
+                setEditId={setEditId}
               />
             ))}
           </div>

@@ -1,19 +1,18 @@
 import React from 'react';
 
-function TodoForm({ addTask, setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem }) {
+function TodoForm({addTask,  setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem,setShow,}) {
 
   return (
     <div className="plusIcon">
       <h1 onClick={() => {
         setToggle(!toggle);
-        // setShow(false);
       }}>+</h1>
       {toggle && (
         <div className="form">
           <form onSubmit={e => e.preventDefault()}>
             <div className="btn-sec">
               <div>
-                <button className="btn-cancle" onClick={() => {setToggle(false);editItem("")}}>
+                <button className="btn-cancle" onClick={() => {setToggle(false);}}>
                   Cancel
                 </button>
               </div>
@@ -24,7 +23,6 @@ function TodoForm({ addTask, setTitle, setDescription, title, description, toggl
                     onClick={() => {
                       setToggle(false);
                       addTask();
-                      
                     }}
                   >
                     Add
@@ -36,7 +34,6 @@ function TodoForm({ addTask, setTitle, setDescription, title, description, toggl
                     onClick={() => {
                       editItem();
                       setToggle();
-                
                     }}
                   >
                     Edit
@@ -73,19 +70,19 @@ function TodoForm({ addTask, setTitle, setDescription, title, description, toggl
               <div className="tags-items">
                 <div className="work">
                   <p></p>
-                  <a href="#">work</a>{" "}
+                  <a href="#">work</a>
                 </div>
                 <div className="study">
                   <p></p>
-                  <a href="#">study</a>{" "}
+                  <a href="#">study</a>
                 </div>
                 <div className="entertainment">
-                  <p></p>{" "}
+                  <p></p>
                   <a href="#">entertainment</a>
                 </div>
                 <div className="family">
                   <p></p>
-                  <a href="#">family</a>{" "}
+                  <a href="#">family</a>
                 </div>
               </div>
             </div>
