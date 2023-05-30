@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TaskItem({ task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, isChecked, handleChecked, setEditId }) {
+function TaskItem({ tag1,tag2,tag3,tag4,task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, isChecked, setEditId, checkboxHandlers}) {
   return (
     <div className="task-section-1" key={task.id}>
       <div className="task-1">
@@ -41,10 +41,11 @@ function TaskItem({ task, i, show, setShow, setToggle, setTitle, setDescription,
           <p>{task.description}</p>
         </div>
         <div className="task-bootom-1">
-          <div className="bottom-left-1">
-            <p className="p1"></p>
-            <p className="p2"></p>
-            <p className="p3"></p>
+          <div className="bottom-left-1" key={task.id} >
+           {tag1 && <p className='p1'></p>}
+           {tag2 && <p className='p2'></p>}
+           {tag3 && <p className='p3'></p>}
+           {tag4 && <p className='p4'></p>}
           </div>
           <div className="check">
             <input
@@ -52,7 +53,8 @@ function TaskItem({ task, i, show, setShow, setToggle, setTitle, setDescription,
               name=""
               id=""
               checked={isChecked}
-              onChange={handleChecked}
+              // onChange={handleChecked}
+              onChange={checkboxHandlers.handleChecked}
             />
             <span>Done</span>
           </div>

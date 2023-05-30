@@ -5,34 +5,53 @@ import TaskItem from './TaskItem';
 function TopBar() {
   const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(-1);
-  
+
   const [editId, setEditId] = useState(-1);
   const [allValue, setAllValue] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [taskIdCounter, setTaskIdCounter] = useState(0);
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState();
   const [isHideChecked, setIsHideChecked] = useState(false);
 
   const [showButton, setShowButton] = useState(true);
 
-  const handleHideChecked = () => {
-    setIsHideChecked(!isHideChecked);
-    if (isChecked) {
+  const [tag1, setTag1] = useState(false);
+  const [tag2, setTag2] = useState(false);
+  const [tag3, setTag3] = useState(false);
+  const [tag4, setTag4] = useState(false);
+
+  const addtag1 = () => {
+    setTag1(!tag1)
+  }
+  const addtag2 = () => {
+    setTag2(!tag2)
+  }
+  const addtag3 = () => {
+    setTag3(!tag3)
+  }
+  const addtag4 = () => {
+    setTag4(!tag4)
+  }
+
+
+  const checkboxHandlers = {
+    handleHideChecked: () => {
+      setIsHideChecked(!isHideChecked);
+      if (isChecked) {
+        setIsChecked(!isChecked);
+      } else if (!isChecked) {
+        setIsChecked(isChecked);
+      }
+    },
+    handleChecked: () => {
       setIsChecked(!isChecked);
-    } else if (!isChecked) {
-      setIsChecked(isChecked);
+      if (isChecked) {
+        setIsHideChecked(!isChecked);
+      }
     }
   };
-
-  const handleChecked = () => {
-    setIsChecked(!isChecked);
-    if (isChecked) {
-      setIsHideChecked(isChecked);
-    }
-  };
-
 
   const addTask = () => {
     if (title && description) {
@@ -40,11 +59,15 @@ function TopBar() {
         id: taskIdCounter,
         title,
         description,
+        // isChecked:false,
+      
       };
       setAllValue([...allValue, newTask]);
       setTaskIdCounter(taskIdCounter + 1)
       setTitle("");
       setDescription("");
+     
+
     }
   };
 
@@ -53,26 +76,21 @@ function TopBar() {
     setAllValue(deletedTask);
   };
 
-  const editItem = (id) => {
+  const editItem = () => {
     if (editId === -1)
       return;
-    // console.table({
-    //   title,
-    //   description,
-    //   id,
-    //   editId
-    // }, "updated data")
     setAllValue((p) => {
       const copy = [...p];
       copy[editId] = {
         title,
         description,
-        id: editId
+        id: editId,
       }
       return copy
     })
     setTitle('');
     setDescription('');
+   
     setShowButton(true);
     setEditId(-1);
   };
@@ -96,6 +114,10 @@ function TopBar() {
             showButton={showButton}
             editItem={editItem}
             editItemId={show}
+            addtag1={addtag1}
+            addtag2={addtag2}
+            addtag3={addtag3}
+            addtag4={addtag4}
           />
         </div>
         <div className="content-section">
@@ -121,7 +143,8 @@ function TopBar() {
                 name=""
                 id=""
                 className="hide-checkbox"
-                onChange={handleHideChecked}
+                // onChange={handleHideChecked}
+                onChange={checkboxHandlers.handleHideChecked}
               />
               <span>Hide Done Tasks</span>
             </div>
@@ -140,9 +163,18 @@ function TopBar() {
                 setShowButton={setShowButton}
                 deleteItem={deleteItem}
                 isChecked={isChecked}
-                handleChecked={handleChecked}
+                // handleChecked={handleChecked}
                 editItem={editItem}
                 setEditId={setEditId}
+                checkboxHandlers={checkboxHandlers}
+                tag1={tag1}
+                tag2={tag2}
+                tag3={tag3}
+                tag4={tag4}
+                setTag1={setTag1}
+                setTag2={setTag2}
+                setTag3={setTag3}
+                setTag4={setTag4}
               />
             ))}
           </div>

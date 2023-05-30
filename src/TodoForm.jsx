@@ -1,6 +1,7 @@
 import React from 'react';
+import './App.css'
 
-function TodoForm({addTask,  setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem,setShow,}) {
+function TodoForm({addTask,task,  setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem,addtag1,addtag2,addtag3,addtag4}) {
 
   return (
     <div className="plusIcon">
@@ -67,22 +68,22 @@ function TodoForm({addTask,  setTitle, setDescription, title, description, toggl
             </div>
             <div className="tags">
               <h2>Tags</h2>
-              <div className="tags-items">
+              <div className="tags-items" >
                 <div className="work">
                   <p></p>
-                  <a href="#">work</a>
+                  <a href="#" onClick={addtag1}>work</a>
                 </div>
                 <div className="study">
                   <p></p>
-                  <a href="#">study</a>
+                  <a href="#"onClick={addtag2}>study</a>
                 </div>
                 <div className="entertainment">
                   <p></p>
-                  <a href="#">entertainment</a>
+                  <a href="#" onClick={addtag3}>entertainment</a>
                 </div>
                 <div className="family">
                   <p></p>
-                  <a href="#">family</a>
+                  <a href="#" onClick={addtag4}>family</a>
                 </div>
               </div>
             </div>
