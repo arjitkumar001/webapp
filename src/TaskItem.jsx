@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TaskItem({ tag1,tag2,tag3,tag4,task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, isChecked, setEditId, checkboxHandlers}) {
+function TaskItem({ isDone, tag1, tag2, tag3, tag4, task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, isChecked, setEditId, checkboxHandlers }) {
   return (
     <div className="task-section-1" key={task.id}>
       <div className="task-1">
@@ -42,19 +42,18 @@ function TaskItem({ tag1,tag2,tag3,tag4,task, i, show, setShow, setToggle, setTi
         </div>
         <div className="task-bootom-1">
           <div className="bottom-left-1" key={task.id} >
-           {tag1 && <p className='p1'></p>}
-           {tag2 && <p className='p2'></p>}
-           {tag3 && <p className='p3'></p>}
-           {tag4 && <p className='p4'></p>}
+            {tag1 && <p className='p1'></p>}
+            {tag2 && <p className='p2'></p>}
+            {tag3 && <p className='p3'></p>}
+            {tag4 && <p className='p4'></p>}
           </div>
           <div className="check">
             <input
               type="checkbox"
               name=""
               id=""
-              checked={isChecked}
-              // onChange={handleChecked}
-              onChange={checkboxHandlers.handleChecked}
+              checked={isDone}
+              onChange={() => checkboxHandlers.handleChecked(i)}
             />
             <span>Done</span>
           </div>

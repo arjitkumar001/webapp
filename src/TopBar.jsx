@@ -38,14 +38,24 @@ function TopBar() {
 
   const checkboxHandlers = {
     handleHideChecked: () => {
+
       setIsHideChecked(!isHideChecked);
       if (isChecked) {
         setIsChecked(!isChecked);
-      } else if (!isChecked) {
+      } else if (!isChecked) { 
         setIsChecked(isChecked);
       }
     },
-    handleChecked: () => {
+    handleChecked: (i) => {
+      // console.log("current checked ", i )
+      // console.log(allValue[i])
+      // const currentIsDone = !allValue[i].isDone
+      // console.log(currentIsDone);
+      // return ;
+      const currentIsDone = [...allValue];
+      currentIsDone[i] = { ...currentIsDone[i], isDone: true };
+      setAllValue(currentIsDone);
+    
       setIsChecked(!isChecked);
       if (isChecked) {
         setIsHideChecked(!isChecked);
@@ -53,21 +63,21 @@ function TopBar() {
     }
   };
 
+
   const addTask = () => {
     if (title && description) {
       const newTask = {
         id: taskIdCounter,
         title,
         description,
-        // isChecked:false,
-      
+        isDone: false,
+        tags:[tag1,tag2,tag3,tag4],
       };
       setAllValue([...allValue, newTask]);
       setTaskIdCounter(taskIdCounter + 1)
       setTitle("");
       setDescription("");
-     
-
+      
     }
   };
 
@@ -90,11 +100,11 @@ function TopBar() {
     })
     setTitle('');
     setDescription('');
-   
+
     setShowButton(true);
     setEditId(-1);
   };
-  // console.log(show);
+  console.log(allValue);
 
   return (
     <section>
@@ -118,6 +128,7 @@ function TopBar() {
             addtag2={addtag2}
             addtag3={addtag3}
             addtag4={addtag4}
+      
           />
         </div>
         <div className="content-section">
@@ -171,10 +182,10 @@ function TopBar() {
                 tag2={tag2}
                 tag3={tag3}
                 tag4={tag4}
-                setTag1={setTag1}
-                setTag2={setTag2}
-                setTag3={setTag3}
-                setTag4={setTag4}
+             
+            
+                done={task.isDone}
+               
               />
             ))}
           </div>

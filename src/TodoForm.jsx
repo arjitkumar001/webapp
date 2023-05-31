@@ -75,7 +75,7 @@ function TodoForm({addTask,task,  setTitle, setDescription, title, description, 
                 </div>
                 <div className="study">
                   <p></p>
-                  <a href="#"onClick={addtag2}>study</a>
+                  <a href="#" onClick={addtag2}>study</a>
                 </div>
                 <div className="entertainment">
                   <p></p>
