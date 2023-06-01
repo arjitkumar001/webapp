@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css'
 
-function TodoForm({addTask,task,  setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem,addtag1,addtag2,addtag3,addtag4}) {
-
+function TodoForm({addTask, setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem,addtag1,addtag2,addtag3,addtag4}) {
+  
   return (
     <div className="plusIcon">
       <h1 onClick={() => {

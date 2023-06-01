@@ -7,6 +7,9 @@ section {
   padding: 50px;
   /* background-color: rgb(224, 224, 224); */
 }
+.hiddenDoneTask{
+  display: none;
+}
 
 .todo {
   box-shadow: 2px 5px 5px 3px rgb(185, 185, 185);

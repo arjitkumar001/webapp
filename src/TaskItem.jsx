@@ -1,9 +1,9 @@
 import React from 'react';
 
-function TaskItem({ isDone, tag1, tag2, tag3, tag4, task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, isChecked, setEditId, checkboxHandlers }) {
+function TaskItem({ isHidden,isDone, tag1, tag2, tag3, tag4, task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, setEditId, checkboxHandlers }) {
   return (
-    <div className="task-section-1" key={task.id}>
-      <div className="task-1">
+    <div  className='task-section-1' key={task.id}>
+      <div className={isHidden ? "hiddenDoneTask" : "task-1"} >
         <div className="task-top1">
           <h3>{task.title}</h3>
           <h3 className="hover-effect" onClick={() => setShow(i)}>
@@ -49,7 +49,7 @@ function TaskItem({ isDone, tag1, tag2, tag3, tag4, task, i, show, setShow, setT
           </div>
           <div className="check">
             <input
-              type="checkbox"
+              type="checkbox" 
               name=""
               id=""
               checked={isDone}

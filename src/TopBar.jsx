@@ -12,8 +12,8 @@ function TopBar() {
   const [description, setDescription] = useState("");
   const [taskIdCounter, setTaskIdCounter] = useState(0);
 
-  const [isChecked, setIsChecked] = useState();
-  const [isHideChecked, setIsHideChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState();
+  const [isHidden, setIsHidden] = useState(false);
 
   const [showButton, setShowButton] = useState(true);
 
@@ -21,29 +21,29 @@ function TopBar() {
   const [tag2, setTag2] = useState(false);
   const [tag3, setTag3] = useState(false);
   const [tag4, setTag4] = useState(false);
-
   const addtag1 = () => {
-    setTag1(!tag1)
-  }
+    setTag1(!tag1);
+  };
+
   const addtag2 = () => {
-    setTag2(!tag2)
-  }
+    setTag2(!tag2);
+  };
+
   const addtag3 = () => {
-    setTag3(!tag3)
-  }
+    setTag3(!tag3);
+  };
+
   const addtag4 = () => {
-    setTag4(!tag4)
-  }
+    setTag4(!tag4);
+  };
 
 
   const checkboxHandlers = {
-    handleHideChecked: () => {
-
-      setIsHideChecked(!isHideChecked);
-      if (isChecked) {
-        setIsChecked(!isChecked);
-      } else if (!isChecked) { 
-        setIsChecked(isChecked);
+    handleHideTask: () => {
+      const hasDoneTask = allValue.some(task => task.isDone);
+      if (hasDoneTask) {
+        setIsHidden(!isHidden);
+        // alert("task hide")
       }
     },
     handleChecked: (i) => {
@@ -55,29 +55,31 @@ function TopBar() {
       const currentIsDone = [...allValue];
       currentIsDone[i] = { ...currentIsDone[i], isDone: true };
       setAllValue(currentIsDone);
-    
-      setIsChecked(!isChecked);
-      if (isChecked) {
-        setIsHideChecked(!isChecked);
-      }
     }
   };
 
 
-  const addTask = () => {
+  const addTask = (i) => {
     if (title && description) {
       const newTask = {
         id: taskIdCounter,
         title,
         description,
         isDone: false,
-        tags:[tag1,tag2,tag3,tag4],
+        tags: [],
       };
+      if (tag1) newTask.tags.push('work');
+      if (tag2) newTask.tags.push('study');
+      if (tag3) newTask.tags.push('entertainment');
+      if (tag4) newTask.tags.push('family');
       setAllValue([...allValue, newTask]);
       setTaskIdCounter(taskIdCounter + 1)
       setTitle("");
       setDescription("");
-      
+      setTag1(tag1);
+      setTag2(tag2);
+      setTag3(tag3);
+      setTag4(tag4);
     }
   };
 
@@ -128,7 +130,8 @@ function TopBar() {
             addtag2={addtag2}
             addtag3={addtag3}
             addtag4={addtag4}
-      
+
+
           />
         </div>
         <div className="content-section">
@@ -154,13 +157,14 @@ function TopBar() {
                 name=""
                 id=""
                 className="hide-checkbox"
-                // onChange={handleHideChecked}
-                onChange={checkboxHandlers.handleHideChecked}
+
+                onChange={checkboxHandlers.handleHideTask}
               />
               <span>Hide Done Tasks</span>
             </div>
           </div>
           <div className="task-section">
+
             {allValue.map((task, i) => (
               <TaskItem
                 key={task.id}
@@ -173,7 +177,7 @@ function TopBar() {
                 setDescription={setDescription}
                 setShowButton={setShowButton}
                 deleteItem={deleteItem}
-                isChecked={isChecked}
+                // isChecked={isChecked}
                 // handleChecked={handleChecked}
                 editItem={editItem}
                 setEditId={setEditId}
@@ -182,10 +186,13 @@ function TopBar() {
                 tag2={tag2}
                 tag3={tag3}
                 tag4={tag4}
-             
-            
+                setTag1={setTag1}
+                setTag2={setTag2}
+                setTag3={setTag3}
+                setTag4={setTag4}
                 done={task.isDone}
-               
+                isHidden={isHidden}
+
               />
             ))}
           </div>
