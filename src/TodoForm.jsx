@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css'
 
-function TodoForm({addTask, setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem,addtag1,addtag2,addtag3,addtag4}) {
-  
+function TodoForm({ addTask, setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem }) {
+
   return (
     <div className="plusIcon">
       <h1 onClick={() => {
@@ -13,7 +13,7 @@ function TodoForm({addTask, setTitle, setDescription, title, description, toggle
           <form onSubmit={e => e.preventDefault()}>
             <div className="btn-sec">
               <div>
-                <button className="btn-cancle" onClick={() => {setToggle(false);}}>
+                <button className="btn-cancle" onClick={() => { setToggle(false); }}>
                   Cancel
                 </button>
               </div>
@@ -71,19 +71,19 @@ function TodoForm({addTask, setTitle, setDescription, title, description, toggle
               <div className="tags-items" >
                 <div className="work">
                   <p></p>
-                  <a href="#" onClick={addtag1}>work</a>
+                  <a href="#" >work</a>
                 </div>
                 <div className="study">
                   <p></p>
-                  <a href="#" onClick={addtag2}>study</a>
+                  <a href="#" >study</a>
                 </div>
                 <div className="entertainment">
                   <p></p>
-                  <a href="#" onClick={addtag3}>entertainment</a>
+                  <a href="#" >entertainment</a>
                 </div>
                 <div className="family">
                   <p></p>
-                  <a href="#" onClick={addtag4}>family</a>
+                  <a href="#" >family</a>
                 </div>
               </div>
             </div>
