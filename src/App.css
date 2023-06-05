@@ -44,14 +44,34 @@ section {
 .content-section {
   display: flex;
   width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 
 .content-section .list-section {
   width: 20%;
+  /* background-color: #d1e5f7; */
 }
+.content-section .task-section {
+  width: 80%;
+  /* background-color: #ffcece; */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.task-section-1 {
+  width: 45%;
+  /* margin-bottom: 10px; */
+
+  padding: 10px 30px;
+}
+.task-1 {
+  background-color: #fff9de;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 
 .work,
 .study,
@@ -125,24 +145,6 @@ input.hide-checkbox {
   margin-left: 10px;
   width: 20px;
   height: 20px;
-}
-
-.content-section .task-section {
-  width: 80%;
-  padding: 0 50px;
-  row-gap: 20px;
-}
-
-.task-section-1 {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-
-.task-1 {
-  background-color: #fff9de;
-  padding: 15px;
-  border-radius: 5px;
 }
 
 
@@ -314,11 +316,22 @@ textarea {
   background-color: #646464;
   color: white;
 }
-
+.done{
+  text-decoration: line-through;
+}
 
 /* Media Query */
+@media (max-width:1368px){
+  .content-section .task-section {
+    width: 100%;
+  }
 
-@media (max-width:992px) and (max-width:1100px) {
+  .task-section-1 {
+    width: 100%;
+  }
+}
+
+@media (max-width:992px) {
   .content-section {
     display: block;
     padding: 0;
@@ -343,14 +356,13 @@ textarea {
   }
 
   .content-section .task-section {
-    width: 85%;
-    padding-left: 30px;
+    width: 100%;
+    /* display:block;
+    flex-wrap:nowrap; */
   }
 
   .task-section-1 {
     width: 100%;
-    padding: 20px;
-    margin-bottom: -30px;
   }
 
   .topbar {
@@ -438,7 +450,7 @@ textarea {
 
   .task-section-1 {
     padding: 15px;
-    margin-bottom: -10px;
+    /* margin-bottom: -10px; */
 
   }
 
@@ -476,13 +488,14 @@ textarea {
     padding-bottom: 20px;
   }
   .task-section{
-    padding: 10px;
+    padding-top: 10px;
   }
 
   .plusIcon h1 {
     padding: 0;
     font-size: 30px;
   }
+ 
 
   .logo h1 {
     padding: 0;
@@ -532,7 +545,7 @@ textarea {
   }
 
   .task-section-1 {
-    padding: 0px;
+    padding: 0px 10px;
     margin-bottom: 5px;
   }
 
@@ -616,9 +629,9 @@ textarea {
 }
 
 
-@media (max-width:400px) {
+@media (max-width:376px) {
   section {
-    padding: 30px;
+    padding: 20px;
   }
 
   .topbar {
@@ -673,17 +686,17 @@ textarea {
   }
 
   .task-1 {
-    padding: 5px;
+    /* padding: 5px; */
   }
 
   .task-section {
     width: 100%;
+    padding-bottom: 0px;
+  }
+  .task-section-1{
+    padding:0 10px;
   }
 
-  .task-section-1 {
-    padding: 0px;
-    margin-bottom: 5px;
-  }
 
   .task-bootom-1 {
     display: flex;

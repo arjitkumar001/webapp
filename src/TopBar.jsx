@@ -8,6 +8,7 @@ function TopBar() {
 
   const [editId, setEditId] = useState(-1);
   const [allValue, setAllValue] = useState([]);
+  const [data, setData] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [taskIdCounter, setTaskIdCounter] = useState(0);
@@ -38,19 +39,30 @@ function TopBar() {
   // };
 
 
+  // const handleHideTask = () => {
+  //   const hasDoneTask = allValue.filter(task=> !task.isDone);
+  //   const hide=hasDoneTask.length
+  //   if (hide) {
+  //     setIsHidden(!isHidden);
+  //   }
+  // }
 
-  const handleHideTask = () => {
-    const hasDoneTask = allValue.some(task => task.isDone);
+  const handleHideTask = (e) => {
+    const checked = e.target.checked;
+    const doneTask = allValue.filter(f =>  f.isDone);
+    console.log(doneTask,"check is done")
+    setData(doneTask)
+    setIsHidden(checked);
+  };
+  const filteredTasks = () => {
 
-    if (hasDoneTask) {
-      setIsHidden(!isHidden);
-      // alert("task hide")
-    }
+    setData(d => d.filter(f => f.isDone))
   }
+  // console.log(data,"done task",isHidden)
+
 
 
   const handleChecked = (i) => {
-
     const currentIsDone = [...allValue];
     currentIsDone[i] = { ...currentIsDone[i], isDone: !currentIsDone[i].isDone };
     setAllValue(currentIsDone);
@@ -58,7 +70,8 @@ function TopBar() {
 
 
 
-  const addTask = (i) => {
+
+  const addTask = () => {
     if (title && description) {
       const newTask = {
         id: taskIdCounter,
@@ -121,7 +134,7 @@ function TopBar() {
             editItem={editItem}
             editItemId={show}
 
-
+            filteredTasks={filteredTasks}
 
           />
         </div>
@@ -148,42 +161,64 @@ function TopBar() {
                 name=""
                 id=""
                 className="hide-checkbox"
-
                 onChange={handleHideTask}
               />
               <span>Hide Done Tasks</span>
             </div>
           </div>
           <div className="task-section">
-
-            {allValue.map((task, i) => (
-
-              <TaskItem
-                key={task.id}
-                task={task}
-                i={i}
-                setShow={setShow}
-                show={show}
-                setToggle={setToggle}
-                setTitle={setTitle}
-                setDescription={setDescription}
-                setShowButton={setShowButton}
-                deleteItem={deleteItem}
-                editItem={editItem}
-                setEditId={setEditId}
-                handleChecked={handleChecked}
-                handleHideTask={handleHideTask}
-                done={task.isDone}
-                isHidden={isHidden}
-
-              />
-
-            ))}
+            <ListRender  data={isHidden ? data:allValue} 
+            setShow={setShow}
+            show={show}
+            setToggle={setToggle}
+            setTitle={setTitle}
+            setDescription={setDescription}
+            setShowButton={setShowButton}
+            deleteItem={deleteItem}
+            editItem={editItem}
+            setEditId={setEditId}
+            handleChecked={handleChecked}
+            handleHideTask={handleHideTask}
+            isHidden={isHidden}
+            filteredTasks={filteredTasks}
+            />
           </div>
         </div>
       </div>
     </section>
   );
+}
+
+
+
+
+const ListRender = ({ data,setShow,show,setToggle,setTitle,setDescription,setShowButton,deleteItem,editItem,setEditId,handleChecked,handleHideTask,isHidden,filteredTasks }) => {
+ console.log(data,"_->")
+  return (
+    data.map((task, i) => (
+
+      <TaskItem
+        key={task.id}
+        task={task}
+        i={i}
+        setShow={setShow}
+        show={show}
+        setToggle={setToggle}
+        setTitle={setTitle}
+        setDescription={setDescription}
+        setShowButton={setShowButton}
+        deleteItem={deleteItem}
+        editItem={editItem}
+        setEditId={setEditId}
+        handleChecked={handleChecked}
+        handleHideTask={handleHideTask}
+        done={task.isDone}
+        isHidden={isHidden}
+        filteredTasks={filteredTasks}
+
+      />
+
+    )))
 }
 
 export default TopBar;
