@@ -6,12 +6,14 @@ function TaskItem({ isDone, task, i, show, setShow, setToggle, setTitle, setDesc
     <div className='task-section-1' key={task.id}>
       <div className= "task-1" >
         <div className="task-top1">
-         {
+        <div className='title-text'>
+        {
           !task.isDone ? (
             <h3>{task.title}</h3>
           ):
           <h3 className='done'>{task.title}</h3>
          }
+        </div>
           <h3 className="hover-effect" onClick={() => setShow(i)}>
             ...
           </h3>

@@ -50,26 +50,18 @@ function TopBar() {
   const handleHideTask = (e) => {
     const checked = e.target.checked;
     const doneTask = allValue.filter(f =>  f.isDone);
-    console.log(doneTask,"check is done")
     setData(doneTask)
     setIsHidden(checked);
   };
   const filteredTasks = () => {
-
     setData(d => d.filter(f => f.isDone))
   }
-  // console.log(data,"done task",isHidden)
-
-
-
+  
   const handleChecked = (i) => {
     const currentIsDone = [...allValue];
     currentIsDone[i] = { ...currentIsDone[i], isDone: !currentIsDone[i].isDone };
     setAllValue(currentIsDone);
   }
-
-
-
 
   const addTask = () => {
     if (title && description) {
@@ -133,9 +125,7 @@ function TopBar() {
             showButton={showButton}
             editItem={editItem}
             editItemId={show}
-
             filteredTasks={filteredTasks}
-
           />
         </div>
         <div className="content-section">
@@ -189,14 +179,9 @@ function TopBar() {
   );
 }
 
-
-
-
 const ListRender = ({ data,setShow,show,setToggle,setTitle,setDescription,setShowButton,deleteItem,editItem,setEditId,handleChecked,handleHideTask,isHidden,filteredTasks }) => {
- console.log(data,"_->")
   return (
     data.map((task, i) => (
-
       <TaskItem
         key={task.id}
         task={task}
@@ -215,9 +200,7 @@ const ListRender = ({ data,setShow,show,setToggle,setTitle,setDescription,setSho
         done={task.isDone}
         isHidden={isHidden}
         filteredTasks={filteredTasks}
-
       />
-
     )))
 }
 
