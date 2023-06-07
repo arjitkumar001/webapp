@@ -253,6 +253,26 @@ form {
   padding-bottom: 10px;
 }
 
+.tags-items-form {
+  display: flex;
+}
+
+.work,
+.study,
+.entertainment,
+.family {
+  padding-left: 10px;
+}
+
+.tags-items-form .work a,
+.tags-items-form .study a,
+.tags-items-form .entertainment a,
+.tags-items-form .family a {
+  font-size: 16px;
+}
+
+
+
 .input-sec {
   padding: 0px 20px;
 }
@@ -376,6 +396,7 @@ textarea {
     width: 110%;
   }
 }
+
 /* get-started page */
 
 .get-started {
@@ -384,19 +405,49 @@ textarea {
   align-items: center;
   height: 100vh;
   transition: all 2s;
-  animation: get 2s ;
+  animation: get 2s;
 }
+
 @keyframes get {
-  0% {opacity: .1;}
-  10% {opacity: .2;}
-  20% {opacity: .3;}
-  30% {opacity: .4;}
-  40% {opacity: .5;}
-  50% {opacity: .6;}
-  60% {opacity: .7;}
-  70% {opacity: .8;}
-  80% {opacity: .9;}
-  100%{opacity: 1;}
+  0% {
+    opacity: .1;
+  }
+
+  10% {
+    opacity: .2;
+  }
+
+  20% {
+    opacity: .3;
+  }
+
+  30% {
+    opacity: .4;
+  }
+
+  40% {
+    opacity: .5;
+  }
+
+  50% {
+    opacity: .6;
+  }
+
+  60% {
+    opacity: .7;
+  }
+
+  70% {
+    opacity: .8;
+  }
+
+  80% {
+    opacity: .9;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .get {
@@ -438,7 +489,7 @@ textarea {
   background-color: #4f4e4e;
   color: white;
   border: none;
-  text-decoration:none;
+  text-decoration: none;
 }
 
 
@@ -502,7 +553,7 @@ textarea {
   }
 
   .form {
-    width: 400px;
+    width: 420px;
     position: absolute;
     top: 50px;
     right: 0px;
@@ -516,9 +567,9 @@ textarea {
     padding-left: 10px;
   }
 
-  .tags-items {
+  .tags-items-form {
     display: flex;
-    padding: 0px 5px;
+    padding: 0px 0px;
   }
 
   .tags-items a {
@@ -538,14 +589,15 @@ textarea {
   .load {
     font-size: 6rem;
   }
+
   .get h1 {
     font-size: 6rem;
   }
-  
+
   .get-btn {
     padding: 10px 40px;
   }
-  
+
 
   .load::before {
     content: '';
@@ -618,15 +670,29 @@ textarea {
 
   .tags h2 {
     padding-top: 5px;
-    padding-left: 5px;
+    padding-left: 15px;
+  }
+  .tags-items-form {
+    display:block;
   }
 
-  .tags-items {
-    display: flex;
-    padding: 0px 5px;
+  
+  .tags-items-form .work,
+  .tags-items-form .study,
+  .tags-items-form .entertainment,
+  .tags-items-form .family {
+    padding-left: 20px;
+  }
+  
+  .tags-items-form .work a,
+  .tags-items-form .study a,
+  .tags-items-form .entertainment a,
+  .tags-items-form .family a {
+    font-size: 12px;
   }
 
-  .tags-items a {
+
+  .tags-items-form a {
     font-size: 14px;
   }
 }
@@ -650,15 +716,16 @@ textarea {
     background-color: gray;
     animation: borderFlow 2s linear infinite;
   }
+
   .get h1 {
     font-size: 5rem;
   }
-  
+
   .get-btn {
     padding: 10px 30px;
     font-size: larger;
   }
-  
+
   .topbar {
     padding-bottom: 20px;
   }
@@ -677,12 +744,16 @@ textarea {
     padding: 0;
     font-size: 30px;
   }
+  .tags-items-form{
+    display: flex;
+  }
 
-  .work,
-  .study,
-  .entertainment,
-  .family {
-    padding-left: 0px;
+  .tags-items-form .work,
+  .tags-items-form .study,
+  .tags-items-form .entertainment,
+  .tags-items-form .family {
+    padding-left: 10px;
+   
   }
 
   .work a,
@@ -693,12 +764,12 @@ textarea {
     font-size: 12px;
   }
 
-  .work,
+  /* .work,
   .study,
   .entertainment,
   .family {
     padding: 5px 5px;
-  }
+  } */
 
   .work p,
   .study p,
@@ -802,7 +873,7 @@ textarea {
     font-size: 20px;
   }
 
-  .tags-items {
+  .tags-items-form {
     display: block;
   }
 
@@ -841,18 +912,20 @@ textarea {
     background-color: gray;
     animation: borderFlow 2s linear infinite;
   }
+
   .get h1 {
     font-size: 4rem;
   }
-  
+
   .get-btn {
     padding: 8px 30px;
     font-size: large;
   }
-  .get p{
+
+  .get p {
     width: 300px;
   }
-  
+
 
   .topbar {
     padding-bottom: 0px;
@@ -987,7 +1060,7 @@ textarea {
     font-size: 20px;
   }
 
-  .tags-items {
+  .tags-items-form {
     display: block;
   }
 

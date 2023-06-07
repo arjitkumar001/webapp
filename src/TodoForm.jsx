@@ -68,7 +68,7 @@ function TodoForm({ addTask, setTitle, setDescription, title, description, toggl
             </div>
             <div className="tags">
               <h2>Tags</h2>
-              <div className="tags-items" >
+              <div className="tags-items-form" >
                 <div className="work">
                   <p></p>
                   <a href="#" >work</a>
