@@ -46,7 +46,13 @@ function TaskItem({ isDone, task, i, show, setShow, setToggle, setTitle, setDesc
           )}
         </div>
         <div className="task-txt-1">
-          <p>{task.description}</p>
+        {
+          !task.isDone ? (
+            <p>{task.description}</p>
+          ):
+          <p className='done'>{task.description}</p>
+         }
+          
         </div>
         <div className="task-bootom-1">
           <div className="bottom-left-1" key={task.id} >

@@ -17,35 +17,7 @@ function TopBar() {
 
   const [showButton, setShowButton] = useState(true);
 
-  // const [tag1, setTag1] = useState(false);
-  // const [tag2, setTag2] = useState(false);
-  // const [tag3, setTag3] = useState(false);
-  // const [tag4, setTag4] = useState(false);
-
-  // const addtag1 = () => {
-  //   setTag1(!tag1);
-  // };
-
-  // const addtag2 = () => {
-  //   setTag2(!tag2);
-  // };
-
-  // const addtag3 = () => {
-  //   setTag3(!tag3);
-  // };
-
-  // const addtag4 = () => {
-  //   setTag4(!tag4);
-  // };
-
-
-  // const handleHideTask = () => {
-  //   const hasDoneTask = allValue.filter(task=> !task.isDone);
-  //   const hide=hasDoneTask.length
-  //   if (hide) {
-  //     setIsHidden(!isHidden);
-  //   }
-  // }
+ 
 
   const handleHideTask = (e) => {
     const checked = e.target.checked;
@@ -114,19 +86,21 @@ function TopBar() {
           <div className="logo">
             <h1>todo</h1>
           </div>
+          <div>
           <TodoForm
-            addTask={addTask}
-            setTitle={setTitle}
-            setDescription={setDescription}
-            title={title}
-            description={description}
-            toggle={toggle}
-            setToggle={setToggle}
-            showButton={showButton}
-            editItem={editItem}
-            editItemId={show}
-            filteredTasks={filteredTasks}
-          />
+          addTask={addTask}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          title={title}
+          description={description}
+          toggle={toggle}
+          setToggle={setToggle}
+          showButton={showButton}
+          editItem={editItem}
+          editItemId={show}
+          filteredTasks={filteredTasks}
+        /></div>
+         
         </div>
         <div className="content-section">
           <div className="list-section">
