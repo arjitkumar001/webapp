@@ -67,6 +67,7 @@
 .study,
 .entertainment,
 .family {
+  cursor: pointer;
   display: flex;
   padding: 10px;
   padding-left: 50px;
@@ -118,7 +119,7 @@
 .family a {
   margin-left: 20px;
   text-decoration: none;
-  color: #6d6d6d;
+  color: #242424;
   font-size: 20px;
 }
 
