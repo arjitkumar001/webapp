@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoForm from './TodoForm';
 import TaskItem from './TaskItem';
 
@@ -8,50 +8,66 @@ function TopBar() {
 
   const [editId, setEditId] = useState(-1);
   const [allValue, setAllValue] = useState([]);
-  const [data, setData] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  // const [data, setData] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [taskIdCounter, setTaskIdCounter] = useState(0);
 
   const [isHidden, setIsHidden] = useState(false);
 
+  const [selectedTags, setSelectedTags] = useState([]);
   const [showButton, setShowButton] = useState(true);
 
-  const [tag1, setTag1] = useState();
-  const [tag2, setTag2] = useState();
-  const [tag3, setTag3] = useState();
-  const [tag4, setTag4] = useState();
+  const [tag1, setTag1] = useState(false);
+  const [tag2, setTag2] = useState(false);
+  const [tag3, setTag3] = useState(false);
+  const [tag4, setTag4] = useState(false);
 
   const add1 = () => {
-    setTag1(!tag1)
-  }
+    setTag1(!tag1);
+  };
   const add2 = () => {
-    setTag2(!tag2)
-  }
+    setTag2(!tag2);
+  };
   const add3 = () => {
-    setTag3(!tag3)
-  }
+    setTag3(!tag3);
+  };
   const add4 = () => {
-    setTag4(!tag4)
-  }
+    setTag4(!tag4);
+  };
+
+
+ 
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      const parsedTasks = JSON.parse(storedTasks);
+      setAllValue(parsedTasks);
+      setTaskIdCounter(parsedTasks.length);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(allValue));
+  }, [allValue]);
 
 
 
   const handleHideTask = (e) => {
     const checked = e.target.checked;
-    const doneTask = allValue.filter(f => f.isDone);
-    setData(doneTask)
     setIsHidden(checked);
   };
-  const filteredTasks = () => {
-    setData(d => d.filter(f => f.isDone))
-  }
 
   const handleChecked = (i) => {
     const currentIsDone = [...allValue];
-    currentIsDone[i] = { ...currentIsDone[i], isDone: !currentIsDone[i].isDone };
+    currentIsDone[i] = {
+      ...currentIsDone[i],
+      isDone: !currentIsDone[i].isDone,
+    };
     setAllValue(currentIsDone);
-  }
+  };
+  console.log(allValue);
 
   const addTask = () => {
     if (title && description) {
@@ -61,16 +77,15 @@ function TopBar() {
         description,
         tags: [],
         isDone: false,
-
       };
-      setAllValue([...allValue, newTask]);
-      setTaskIdCounter(taskIdCounter + 1)
-      setTitle("");
-      setDescription("");
-      if (tag1) newTask.tags.push("p1");
-      if (tag2) newTask.tags.push("p2");
-      if (tag3) newTask.tags.push("p3");
-      if (tag4) newTask.tags.push("p4");
+      setAllValue((prevTasks) => [...prevTasks, newTask]);
+      setTaskIdCounter((prevCounter) => prevCounter + 1);
+      setTitle('');
+      setDescription('');
+      if (tag1) newTask.tags.push('p1');
+      if (tag2) newTask.tags.push('p2');
+      if (tag3) newTask.tags.push('p3');
+      if (tag4) newTask.tags.push('p4');
 
       setTag1(false);
       setTag2(false);
@@ -79,36 +94,72 @@ function TopBar() {
     }
   };
 
-  const deleteItem = id => {
-    const deletedTask = allValue.filter(task => task.id !== id);
+  const deleteItem = (id) => {
+    const deletedTask = allValue.filter((task) => task.id !== id);
     setAllValue(deletedTask);
   };
 
   const editItem = () => {
-    if (editId === -1)
-      return;
-    setAllValue((p) => {
-      const copy = [...p];
+    if (editId === -1) return;
+    setAllValue((prevTasks) => {
+      const copy = [...prevTasks];
       copy[editId] = {
         title,
         description,
-        tags: [
-          tag1 ? "p1" : "",
-          tag2 ? "p2" : "",
-          tag3 ? "p3" : "",
-          tag4 ? "p4" : "",
-        ].filter((tag) => tag !== ""),
+        tags: [tag1 ? 'p1' : '', tag2 ? 'p2' : '', tag3 ? 'p3' : '', tag4 ? 'p4' : ''].filter((tag) => tag !== ''),
         id: editId,
-
-      }
-      return copy
-    })
+      };
+      return copy;
+    });
     setTitle('');
     setDescription('');
     setShowButton(true);
     setEditId(-1);
   };
-  console.log(allValue);
+
+  const filterData = () => {
+    let filteredData = [...allValue];
+    if (selectedTags.length > 0) {
+      filteredData = filteredData.filter((task) => {
+        return selectedTags.every((tag) => task.tags.includes(tag));
+      });
+    }
+    return filteredData;
+  };
+
+  const filteredData = filterData();
+
+  const work = () => {
+    if (selectedTags.includes('p1')) {
+      setSelectedTags(selectedTags.filter((tag) => tag !== 'p1'));
+    } else {
+      setSelectedTags([...selectedTags, 'p1']);
+    }
+  };
+
+  const study = () => {
+    if (selectedTags.includes('p2')) {
+      setSelectedTags(selectedTags.filter((tag) => tag !== 'p2'));
+    } else {
+      setSelectedTags([...selectedTags, 'p2']);
+    }
+  };
+
+  const entertainment = () => {
+    if (selectedTags.includes('p3')) {
+      setSelectedTags(selectedTags.filter((tag) => tag !== 'p3'));
+    } else {
+      setSelectedTags([...selectedTags, 'p3']);
+    }
+  };
+
+  const family = () => {
+    if (selectedTags.includes('p4')) {
+      setSelectedTags(selectedTags.filter((tag) => tag !== 'p4'));
+    } else {
+      setSelectedTags([...selectedTags, 'p4']);
+    }
+  };
 
   return (
     <section>
@@ -129,7 +180,7 @@ function TopBar() {
               showButton={showButton}
               editItem={editItem}
               editItemId={show}
-              filteredTasks={filteredTasks}
+              filterData={filterData}
               tag1={tag1}
               tag2={tag2}
               tag3={tag3}
@@ -138,26 +189,26 @@ function TopBar() {
               add2={add2}
               add3={add3}
               add4={add4}
-            /></div>
-
+            />
+          </div>
         </div>
         <div className="content-section">
           <div className="list-section">
-            <div className="work">
+            <div className="work" onClick={work}>
               <p></p>
               <a href="#">work</a>
             </div>
-            <div className="study">
+            <div className="study" onClick={study}>
               <p></p>
-              <a href="#" >study</a>
+              <a href="#">study</a>
             </div>
-            <div className="entertainment">
+            <div className="entertainment" onClick={entertainment}>
               <p></p>
-              <a href="#" >entertainment</a>
+              <a href="#">entertainment</a>
             </div>
-            <div className="family">
+            <div className="family" onClick={family}>
               <p></p>
-              <a href="#" >family</a>
+              <a href="#">family</a>
             </div>
             <div className="checkbox">
               <input
@@ -171,7 +222,8 @@ function TopBar() {
             </div>
           </div>
           <div className="task-section">
-            <ListRender data={isHidden ? data : allValue}
+            <ListRender
+              data={isHidden ? data : filteredData}
               setShow={setShow}
               show={show}
               setToggle={setToggle}
@@ -184,7 +236,11 @@ function TopBar() {
               handleChecked={handleChecked}
               handleHideTask={handleHideTask}
               isHidden={isHidden}
-              filteredTasks={filteredTasks}
+              filterData={filterData}
+              add1={add1}
+              add2={add2}
+              add3={add3}
+              add4={add4}
               tag1={tag1}
               tag2={tag2}
               tag3={tag3}
@@ -195,36 +251,61 @@ function TopBar() {
       </div>
     </section>
   );
-}
+};
 
-const ListRender = ({ tag1, tag2, tag3, tag4, data, setShow, show, setToggle, setTitle, setDescription, setShowButton, deleteItem, editItem, setEditId, handleChecked, handleHideTask, isHidden, filteredTasks }) => {
-  return (
-    data.map((task, i) => (
-      <TaskItem
-        key={task.id}
-        task={task}
-        i={i}
-        setShow={setShow}
-        show={show}
-        setToggle={setToggle}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setShowButton={setShowButton}
-        deleteItem={deleteItem}
-        editItem={editItem}
-        setEditId={setEditId}
-        handleChecked={handleChecked}
-        handleHideTask={handleHideTask}
-        done={task.isDone}
-        isHidden={isHidden}
-        filteredTasks={filteredTasks}
-        tag1={tag1}
-        tag2={tag2}
-        tag3={tag3}
-        tag4={tag4}
-
-      />
-    )))
-}
+const ListRender = ({
+  tag1,
+  tag2,
+  tag3,
+  tag4,
+  add1,
+  add2,
+  add3,
+  add4,
+  data,
+  setShow,
+  show,
+  setToggle,
+  setTitle,
+  setDescription,
+  setShowButton,
+  deleteItem,
+  editItem,
+  setEditId,
+  handleChecked,
+  handleHideTask,
+  isHidden,
+  filterData,
+}) => {
+  return data.map((task, i) => (
+    <TaskItem
+      key={task.id}
+      task={task}
+      i={i}
+      setShow={setShow}
+      show={show}
+      setToggle={setToggle}
+      setTitle={setTitle}
+      setDescription={setDescription}
+      setShowButton={setShowButton}
+      deleteItem={deleteItem}
+      editItem={editItem}
+      setEditId={setEditId}
+      handleChecked={handleChecked}
+      handleHideTask={handleHideTask}
+      done={task.isDone}
+      isHidden={isHidden}
+      filterData={filterData}
+      add1={add1}
+      add2={add2}
+      add3={add3}
+      add4={add4}
+      tag1={tag1}
+      tag2={tag2}
+      tag3={tag3}
+      tag4={tag4}
+    />
+  ));
+};
 
 export default TopBar;
