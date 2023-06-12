@@ -8,7 +8,7 @@ function TopBar() {
 
   const [editId, setEditId] = useState(-1);
   const [allValue, setAllValue] = useState([]);
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [taskIdCounter, setTaskIdCounter] = useState(0);
@@ -36,21 +36,21 @@ function TopBar() {
     setTag4(!tag4);
   };
 
-
  
 
-  useEffect(() => {
-    const storedTasks = localStorage.getItem('tasks');
-    if (storedTasks) {
-      const parsedTasks = JSON.parse(storedTasks);
-      setAllValue(parsedTasks);
-      setTaskIdCounter(parsedTasks.length);
+   useEffect(() => {
+    // Load data from local storage
+    const storedData = localStorage.getItem('todoData');
+    if (storedData) {
+      setAllValue(JSON.parse(storedData));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(allValue));
+    // Save data to local storage whenever allValue changes
+    localStorage.setItem('todoData', JSON.stringify(allValue));
   }, [allValue]);
+
 
 
 
@@ -79,6 +79,7 @@ function TopBar() {
         isDone: false,
       };
       setAllValue((prevTasks) => [...prevTasks, newTask]);
+      // setData((prevData) => [...prevData, newTask]);
       setTaskIdCounter((prevCounter) => prevCounter + 1);
       setTitle('');
       setDescription('');
@@ -117,15 +118,29 @@ function TopBar() {
     setEditId(-1);
   };
 
+  // const filterData = () => {
+  //   let filteredData = [...allValue];
+  //   if (selectedTags.length > 0) {
+  //     filteredData = filteredData.filter((task) => {
+  //       return selectedTags.every((tag) => task.tags.includes(tag));
+  //     });
+  //   }
+  //   return filteredData;
+  // };
   const filterData = () => {
-    let filteredData = [...allValue];
-    if (selectedTags.length > 0) {
-      filteredData = filteredData.filter((task) => {
-        return selectedTags.every((tag) => task.tags.includes(tag));
-      });
-    }
-    return filteredData;
-  };
+  let filteredData = [...allValue];
+  if (selectedTags.length > 0) {
+    filteredData = filteredData.filter((task) => {
+      return selectedTags.every((tag) => task.tags.includes(tag));
+    });
+  }
+
+  if (isHidden) {
+    filteredData = filteredData.filter((task) => !task.isDone);
+  }
+
+  return filteredData;
+};
 
   const filteredData = filterData();
 
@@ -216,9 +231,11 @@ function TopBar() {
                 name=""
                 id=""
                 className="hide-checkbox"
+                checked={isHidden}
                 onChange={handleHideTask}
               />
-              <span>Hide Done Tasks</span>
+
+              <span>Show Done Tasks</span>
             </div>
           </div>
           <div className="task-section">
@@ -253,30 +270,7 @@ function TopBar() {
   );
 };
 
-const ListRender = ({
-  tag1,
-  tag2,
-  tag3,
-  tag4,
-  add1,
-  add2,
-  add3,
-  add4,
-  data,
-  setShow,
-  show,
-  setToggle,
-  setTitle,
-  setDescription,
-  setShowButton,
-  deleteItem,
-  editItem,
-  setEditId,
-  handleChecked,
-  handleHideTask,
-  isHidden,
-  filterData,
-}) => {
+const ListRender = ({ tag1, tag2, tag3, tag4, add1, add2, add3, add4, data, setShow, show, setToggle, setTitle, setDescription,setShowButton, deleteItem, editItem,setEditId,handleChecked,handleHideTask, isHidden, filterData,}) => {
   return data.map((task, i) => (
     <TaskItem
       key={task.id}
