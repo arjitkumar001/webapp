@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TaskItem({ tag1, tag2, tag3, tag4, isDone, task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, setEditId, handleChecked }) {
+function TaskItem({ isDone, task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem, setEditId, handleChecked }) {
 
   return (
     <div className='task-section-1' key={task.id}>
