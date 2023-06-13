@@ -36,11 +36,10 @@ function TopBar() {
     setTag4(!tag4);
   };
 
- 
-
-   useEffect(() => {
+  // Save UserData to local Storage=========================
+  useEffect(() => {
     // Load data from local storage
-    const storedData = localStorage.getItem('todoData');
+    const storedData = localStorage.getItem('userData');
     if (storedData) {
       setAllValue(JSON.parse(storedData));
     }
@@ -48,17 +47,19 @@ function TopBar() {
 
   useEffect(() => {
     // Save data to local storage whenever allValue changes
-    localStorage.setItem('todoData', JSON.stringify(allValue));
+    localStorage.setItem('userData', JSON.stringify(allValue));
   }, [allValue]);
 
 
-
-
+  // Show Done Task here======================
   const handleHideTask = (e) => {
     const checked = e.target.checked;
+    const doneTask = allValue.filter(f => f.isDone);
+    setData(doneTask)
     setIsHidden(checked);
   };
 
+  // Done Task Here===========================
   const handleChecked = (i) => {
     const currentIsDone = [...allValue];
     currentIsDone[i] = {
@@ -69,6 +70,7 @@ function TopBar() {
   };
   console.log(allValue);
 
+  // Add task here=============================
   const addTask = () => {
     if (title && description) {
       const newTask = {
@@ -79,7 +81,6 @@ function TopBar() {
         isDone: false,
       };
       setAllValue((prevTasks) => [...prevTasks, newTask]);
-      // setData((prevData) => [...prevData, newTask]);
       setTaskIdCounter((prevCounter) => prevCounter + 1);
       setTitle('');
       setDescription('');
@@ -95,10 +96,14 @@ function TopBar() {
     }
   };
 
+  // Delete task here==========================
+
   const deleteItem = (id) => {
     const deletedTask = allValue.filter((task) => task.id !== id);
     setAllValue(deletedTask);
   };
+
+  // Edit task here=============================
 
   const editItem = () => {
     if (editId === -1) return;
@@ -107,7 +112,12 @@ function TopBar() {
       copy[editId] = {
         title,
         description,
-        tags: [tag1 ? 'p1' : '', tag2 ? 'p2' : '', tag3 ? 'p3' : '', tag4 ? 'p4' : ''].filter((tag) => tag !== ''),
+        tags: [
+          tag1 ? 'p1' : '',
+          tag2 ? 'p2' : '',
+          tag3 ? 'p3' : '',
+          tag4 ? 'p4' : ''
+        ].filter((tag) => tag !== ''),
         id: editId,
       };
       return copy;
@@ -118,31 +128,22 @@ function TopBar() {
     setEditId(-1);
   };
 
-  // const filterData = () => {
-  //   let filteredData = [...allValue];
-  //   if (selectedTags.length > 0) {
-  //     filteredData = filteredData.filter((task) => {
-  //       return selectedTags.every((tag) => task.tags.includes(tag));
-  //     });
-  //   }
-  //   return filteredData;
-  // };
+
+  //Filter task here==================================== 
+
   const filterData = () => {
-  let filteredData = [...allValue];
-  if (selectedTags.length > 0) {
-    filteredData = filteredData.filter((task) => {
-      return selectedTags.every((tag) => task.tags.includes(tag));
-    });
-  }
+    let filteredData = [...allValue];
+    if (selectedTags.length > 0) {
+      filteredData = filteredData.filter((task) => {
+        return selectedTags.every((tag) => task.tags.includes(tag));
+      });
+    }
+    return filteredData;
+  };
 
-  if (isHidden) {
-    filteredData = filteredData.filter((task) => !task.isDone);
-  }
-
-  return filteredData;
-};
 
   const filteredData = filterData();
+
 
   const work = () => {
     if (selectedTags.includes('p1')) {
@@ -270,7 +271,8 @@ function TopBar() {
   );
 };
 
-const ListRender = ({ tag1, tag2, tag3, tag4, add1, add2, add3, add4, data, setShow, show, setToggle, setTitle, setDescription,setShowButton, deleteItem, editItem,setEditId,handleChecked,handleHideTask, isHidden, filterData,}) => {
+const ListRender = ({ tag1, tag2, tag3, tag4, add1, add2, add3, add4, data, setShow, show, setToggle, setTitle, setDescription, setShowButton, deleteItem, editItem, setEditId, handleChecked, handleHideTask, isHidden, filterData, }) => {
+
   return data.map((task, i) => (
     <TaskItem
       key={task.id}
