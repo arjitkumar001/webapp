@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css'
 
-function TodoForm({add1,add2,add3,add4, addTask, setTitle, setDescription, title, description, toggle, setToggle, showButton, editItem }) {
 
+function TodoForm({ addTask, setTitle, setDescription, title, description, toggle, setToggle, showButton, }) {
   return (
     <div className="plusIcon">
       <h1 onClick={() => {
@@ -18,7 +18,7 @@ function TodoForm({add1,add2,add3,add4, addTask, setTitle, setDescription, title
                 </button>
               </div>
               <div>
-                {showButton ? (
+               
                   <button
                     className="btn-add"
                     onClick={() => {
@@ -28,18 +28,8 @@ function TodoForm({add1,add2,add3,add4, addTask, setTitle, setDescription, title
                   >
                     Add
                   </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="edit-btn"
-                    onClick={() => {
-                      editItem();
-                      setToggle();
-                    }}
-                  >
-                    Edit
-                  </button>
-                )}
+              
+              
               </div>
             </div>
             <hr />
@@ -69,19 +59,19 @@ function TodoForm({add1,add2,add3,add4, addTask, setTitle, setDescription, title
             <div className="tags">
               <h2>Tags</h2>
               <div className="tags-items-form" >
-                <div className="work" onClick={add1}>
+                <div className="work" >
                   <p></p>
                   <a href="#"  >work</a>
                 </div>
-                <div className="study" onClick={add2}>
+                <div className="study" >
                   <p></p>
                   <a href="#" >study</a>
                 </div>
-                <div className="entertainment" onClick={add3}>
+                <div className="entertainment" >
                   <p></p>
                   <a href="#"  >entertainment</a>
                 </div>
-                <div className="family" onClick={add4}>
+                <div className="family" >
                   <p></p>
                   <a href="#" >family</a>
                 </div>
