@@ -1,40 +1,47 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
 import TaskItem from './TaskItem';
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from './Action/Action';
+import {useDispatch, useSelector } from 'react-redux';
+import { addItem ,toggle} from './Action/Action';
+
+
 
 function TopBar() {
-  const [toggle, setToggle] = useState(false);
+  // const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(-1);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const allValue = useSelector((state) => state.allValue) || [];
   const dispatch = useDispatch();
+  const allValue = useSelector((state) => state.allValue) || [];
+  const toggleState = useSelector((state) => state.toggle);
 
 
+  const handleToggle = () => {
+    dispatch(!toggle);
+  };
+ 
+ 
+ 
 
-
-  console.log(allValue);
 
   // Add task here=============================
   const addTask = () => {
+
     if (title && description) {
       const newTask = {
-        id: allValue.length + 1,
+        id: Date.now(),
         title,
         description,
-
       };
-      dispatch(addItem(newTask))
-      // setAllValue((prevTasks) => [...prevTasks, newTask]);
-      // setTaskIdCounter((prevCounter) => prevCounter + 1);
+      dispatch(addItem(newTask));
       setTitle('');
       setDescription('');
-
     }
+
   };
+
+  console.log(allValue);
 
   return (
     <section>
@@ -50,9 +57,10 @@ function TopBar() {
               setDescription={setDescription}
               title={title}
               description={description}
-              toggle={toggle}
-              setToggle={setToggle}
-
+              // toggle={toggle}
+              // setToggle={setToggle}
+              toggle={toggleState}
+              setToggle={handleToggle}
 
             />
           </div>
@@ -95,9 +103,10 @@ function TopBar() {
                     i={i}
                     setShow={setShow}
                     show={show}
-                    setToggle={setToggle}
+                    // setToggle={setToggle}
                     setTitle={setTitle}
                     setDescription={setDescription}
+                    handleToggle={handleToggle}
                   />
                 )
               })
@@ -108,6 +117,7 @@ function TopBar() {
     </section>
   );
 };
+
 
 
 export default TopBar;
