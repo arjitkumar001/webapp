@@ -1,16 +1,17 @@
 import React from 'react';
 
-function TaskItem({  task, i, show, setShow, setToggle, setTitle, setDescription, setShowButton }) {
+
+function TaskItem({ task, i,isDone, show, setShow, setToggle, setTitle, setDescription, setShowButton, deleteItem,setEditId,handleChecked }) {
 
   return (
     <div className='task-section-1' key={task.id}>
       <div className="task-1" >
         <div className="task-top1">
           <div className='title-text'>
-           
-                <h3>{task.title}</h3>
-             
-              
+
+            <h3>{task.title}</h3>
+
+
           </div>
           <h3 className="hover-effect" onClick={() => setShow(i)}>
             ...
@@ -22,7 +23,7 @@ function TaskItem({  task, i, show, setShow, setToggle, setTitle, setDescription
                   onClick={() => {
                     setToggle(true);
                     setShow(-1);
-                
+                  
                     setTitle(task.title);
                     setDescription(task.description);
                     setShowButton(false);
@@ -34,7 +35,7 @@ function TaskItem({  task, i, show, setShow, setToggle, setTitle, setDescription
               <hr />
               <div className="delete">
                 <p onClick={() => {
-             
+                  deleteItem(task.id)
                   setShow(-1)
                 }}>
                   Delete...
@@ -44,18 +45,18 @@ function TaskItem({  task, i, show, setShow, setToggle, setTitle, setDescription
           )}
         </div>
         <div className="task-txt-1">
-        
-              <p>{task.description}</p>
-      
+
+          <p>{task.description}</p>
+
 
         </div>
         <div className="task-bootom-1">
-        
+
           <div className="bottom-left-1" key={task.id}>
-         <p className='p1'></p>
-         <p className='p2'></p>
-         <p className='p3'></p>
-         <p className='p4'></p>
+            <p className='p1'></p>
+            <p className='p2'></p>
+            <p className='p3'></p>
+            <p className='p4'></p>
           </div>
 
           <div className="check">
@@ -63,8 +64,9 @@ function TaskItem({  task, i, show, setShow, setToggle, setTitle, setDescription
               type="checkbox"
               name=""
               id=""
-            
-            
+              checked={isDone}
+              onChange={() => handleChecked(i)}
+
             />
             <span>Done</span>
           </div>
@@ -73,4 +75,6 @@ function TaskItem({  task, i, show, setShow, setToggle, setTitle, setDescription
     </div>
   );
 }
+
+
 export default TaskItem;

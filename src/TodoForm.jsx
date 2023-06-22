@@ -1,30 +1,43 @@
 import React from 'react';
 import './App.css'
 
-function TodoForm({handleToggle, addTask, setTitle, setDescription, title, description, toggle, setToggle, }) {
-
-
+function TodoForm({ addTask, setTitle, setDescription, title, description, toggle, setToggle,showButton,editItem }) {
   return (
     <div className="plusIcon">
-      <h1 onClick={handleToggle}>+</h1>
+      <h1 onClick={()=>{setToggle(!toggle)}}>+</h1>
       {toggle && (
         <div className="form">
           <form onSubmit={e => e.preventDefault()}>
             <div className="btn-sec">
               <div>
-                <button className="btn-cancle" onClick={handleToggle}>
+                <button className="btn-cancle" onClick={() => {setToggle(false)}}>
                   Cancel
                 </button>
               </div>
               <div>
+              {showButton ?(
                   <button
                     className="btn-add"
                     onClick={() => {
+                      setToggle(false)
                       addTask()
                     }}
                   >
                     Add
                   </button>
+              ):(
+                <button
+                    type="button"
+                    className="edit-btn"
+                    onClick={() => {
+                      editItem();
+                      setToggle();
+                    }}
+                  >
+                    Edit
+                  </button>
+              )
+              }
               </div>
             </div>
             <hr />
