@@ -23,7 +23,7 @@ function TaskItem({ task, i,isDone, show, setShow, setToggle, setTitle, setDescr
                   onClick={() => {
                     setToggle(true);
                     setShow(-1);
-                  
+                    setEditId(i)
                     setTitle(task.title);
                     setDescription(task.description);
                     setShowButton(false);
@@ -52,11 +52,10 @@ function TaskItem({ task, i,isDone, show, setShow, setToggle, setTitle, setDescr
         </div>
         <div className="task-bootom-1">
 
-          <div className="bottom-left-1" key={task.id}>
-            <p className='p1'></p>
-            <p className='p2'></p>
-            <p className='p3'></p>
-            <p className='p4'></p>
+        <div className="bottom-left-1" key={task.id}>
+          {task.tags.map((tag, index) => (
+            <p key={index} className={tag}></p>
+          ))}
           </div>
 
           <div className="check">
