@@ -1,15 +1,15 @@
 
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK='DELETE_TASK';
-export const EDIT_ITEM='EDIT_ITEM';
+export const EDIT_TASK='EDIT_TASK';
 export const DONE_TASK='DONE_TASK';
 
 
 
-export const addItem = (newTask) => {
+export const addItem = (newTask,tags) => {
     return {
         type: ADD_TASK,
-        payload: newTask
+        payload:{ newTask,tags}
     }
 }
 
@@ -20,25 +20,18 @@ export const deleteTask = (taskId) => {
   };
 };
 
-// export const updateTask = (updatedTask) => {
-//   return {
-//     type: UPDATE_TASK,
-//     payload: updatedTask,
-//   };
-// };
 export const doneTask=(task)=>{
   return{
     type:DONE_TASK,
     payload:task,
   }
 }
-export const editTask = (editId, title, description) => {
+
+export const editTask = (editedTask,tags) => {
   return {
-    type: EDIT_ITEM,
-    payload: {
-      editId,
-      title,
-      description,
-    },
+    type: EDIT_TASK,
+    payload: {editedTask,tags}
   };
 };
+
+

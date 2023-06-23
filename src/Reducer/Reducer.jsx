@@ -1,4 +1,4 @@
-import { ADD_TASK, DELETE_TASK, DONE_TASK} from "../Action/Action";
+import { ADD_TASK, DELETE_TASK, DONE_TASK, EDIT_TASK } from "../Action/Action";
 
 
 const initialState = { allValue: [], editId: -1, }
@@ -9,7 +9,7 @@ const todoReducer = (state = initialState, action) => {
     case ADD_TASK:
       return {
         ...state,
-        allValue: [...state.allValue, action.payload],
+        allValue: [...state.allValue, { ...action.payload.newTask, tags: action.payload.tags }],
       };
     case DELETE_TASK:
       return {
@@ -21,25 +21,26 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         allValue: action.payload,
       };
-      case 'EDIT_ITEM':
-        const { editId, title, description } = action.payload;
-        const updatedTasks = state.tasks.map((task, index) => {
-          if (index === editId) {
-            return {
-              title,
-              description,
-            };
-          }
-          return task;
-        });
-  
-        return {
-          ...state,
-          tasks: updatedTasks,
-          editId: -1,
-        };
-  
 
+    case EDIT_TASK:
+      const { editId, title, description, tags } = action.payload.editedTask;
+      const updatedTasks = state.allValue.map((task) => {
+        if (task.id === editId) {
+          return {
+            ...task,
+            title,
+            description,
+            tags,
+          };
+        }
+        return task;
+      });
+
+      return {
+        ...state,
+        allValue: updatedTasks,
+        editId: -1,
+      };
 
     default:
       return state;
